@@ -64,7 +64,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'React Redux Sequence',
+      title: 'React Posts App',
       template: 'src/index.html',
     }),
   ],
