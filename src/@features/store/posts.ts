@@ -1,4 +1,6 @@
 import { ActionTypes, Action, Actions, State } from '../types/store.interface';
+import { takeEvery, delay, put, call } from 'redux-saga/effects'
+import PostService from '../services/post.service';
 
 const initialState: State = {
     posts: null,
@@ -13,10 +15,10 @@ export const VALUES_ACTION_TYPES: ActionTypes = {
 }
 
 export const valuesActions: Actions = {
-    getPersonValues: (payload) => ({type: VALUES_ACTION_TYPES.GET_PERSON, payload}),
+    getPosts: (payload) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
 }
 
-export function valuesReducer(state: State = initialState, {type, payload}: Action) {
+export function postsReducer(state: State = initialState, { type, payload }: Action) {
     switch (type) {
         case VALUES_ACTION_TYPES.GET_POSTS:
             return {
@@ -27,7 +29,7 @@ export function valuesReducer(state: State = initialState, {type, payload}: Acti
         case VALUES_ACTION_TYPES.GET_POSTS_SUCCESS:
             return {
                 ...state,
-                personValues: payload,
+                posts: payload,
                 isLoading: false
             }
         case VALUES_ACTION_TYPES.GET_POSTS_FAIL:
@@ -39,4 +41,15 @@ export function valuesReducer(state: State = initialState, {type, payload}: Acti
         default:
             return state
     }
+}
+
+function* getPosts({ payload }: any) {
+    const { data } = yield call(() => PostService.getPosts(payload.limit));
+    console.log(data);
+    yield put({ type: 'GET_POSTS_SUCCESS', payload: data })
+}
+
+export function* postSagas() {
+    console.log('Hello Sagas!')
+    yield takeEvery(VALUES_ACTION_TYPES.GET_POSTS, getPosts)
 }

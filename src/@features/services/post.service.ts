@@ -1,14 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import { from, Observable } from "rxjs";
 import { Post } from "../types/post.interface";
 import { APIService } from "../store/service";
+import { Nullable } from "../types/store.interface";
 
 class PostService extends APIService {
-  getPosts = (): Observable<AxiosResponse<Post[]>> => 
-    from(axios.get<Post[]>(`${this.apiUrl}/posts`));
+  getPosts = (limit: Nullable<number> = null): Promise<AxiosResponse<Post[]>> =>
+    axios.get<Post[]>(`${this.apiUrl}/posts${this.addLimitStr(limit)}`);
 
-  getPost = (id: number): Observable<AxiosResponse<Post>> => 
-    from(axios.get<Post>(`${this.apiUrl}/posts/${id}`));
+  getPost = (id: number): Promise<AxiosResponse<Post>> =>
+    axios.get<Post>(`${this.apiUrl}/posts/${id}`);
 }
 
-export default new PostService('https://jsonplaceholder.typicode.com/');
+export default new PostService('https://jsonplaceholder.typicode.com');

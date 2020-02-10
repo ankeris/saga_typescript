@@ -1,7 +1,13 @@
-export class APIService {
-    public apiUrl: string;
+import { Nullable } from "../types/store.interface";
 
-    constructor(apiUrl: string) {
-      this.apiUrl = apiUrl;
-    }
+export class APIService {
+  public apiUrl: string;
+
+  constructor(apiUrl: string) {
+    this.apiUrl = apiUrl;
+  }
+
+  addLimitStr(limit: Nullable<number>): string {
+    return limit ? `?_limit=${limit}` : '';
+  }
 }
