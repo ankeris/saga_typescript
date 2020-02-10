@@ -4,6 +4,7 @@ import { valuesActions } from '../@features/store/posts';
 // types
 import { Post } from "../@features/types/post.interface";
 import CardPost from "./CardPost";
+import Pagination from "./Pagination";
 
 interface IProps extends DispatchProp {
     posts: Array<Post>
@@ -34,6 +35,7 @@ const PagePosts: FunctionComponent<IProps> = (props) => {
             {props.posts && props.posts.map((x: Post) =>
                 <CardPost color={getRandomColor()} key={x.id} {...x}>hi</CardPost>
             )}
+            <Pagination onPageChange={(pageNum) => console.log(pageNum)}></Pagination>
         </section>
     );
 }
