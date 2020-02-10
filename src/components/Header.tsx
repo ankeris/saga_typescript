@@ -1,5 +1,4 @@
 import React, { useState, FunctionComponent, useEffect } from "react";
-import '../@features/sass/style.scss';
 
 const Header: FunctionComponent = () => {
   return (
