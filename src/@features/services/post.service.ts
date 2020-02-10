@@ -4,8 +4,8 @@ import { APIService } from "../store/service";
 import { Nullable } from "../types/store.interface";
 
 class PostService extends APIService {
-  getPosts = (limit: Nullable<number> = null): Promise<AxiosResponse<Post[]>> =>
-    axios.get<Post[]>(`${this.apiUrl}/posts${this.addLimitStr(limit)}`);
+  getPosts = (limit: Nullable<number> = null, pageNumber: Nullable<number> = null): Promise<AxiosResponse<Post[]>> =>
+    axios.get<Post[]>(`${this.apiUrl}/posts${this.addLimitStr(limit) + this.addStartStr(pageNumber)}`);
 
   getPost = (id: number): Promise<AxiosResponse<Post>> =>
     axios.get<Post>(`${this.apiUrl}/posts/${id}`);

@@ -10,4 +10,8 @@ export class APIService {
   addLimitStr(limit: Nullable<number>): string {
     return limit ? `?_limit=${limit}` : '';
   }
+
+  addStartStr(startNumber: Nullable<number>): string {
+    return startNumber ? `&_start=${startNumber}` : '';
+  }
 }
