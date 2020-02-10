@@ -6,18 +6,24 @@ import store from './@features/store/store';
 // components
 import Header from './components/Header';
 import PagePostsContainer from './components/PagePosts';
+import { ThemeProvider } from 'styled-components';
+import { myTheme } from './@features/styling/theme';
+import { GlobalStyles } from './@features/styling/global';
 
 const app =
     <section className="app-box">
-        <Provider store={store}>
-            <Header />
-            <BrowserRouter>
-                <Switch>
-                    <Route path="/" render={(props: any) => <PagePostsContainer {...props} />} />
-                    {/* <Route path="/about" render={(props: any) => <PageAuthentication {...props} setAuth={() => afterLogin()} />} /> */}
-                </Switch>
-            </BrowserRouter>
-        </Provider>
+        <GlobalStyles />
+        <ThemeProvider theme={myTheme}>
+            <Provider store={store}>
+                <Header />
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/" render={(props: any) => <PagePostsContainer {...props} />} />
+                        {/* <Route path="/about" render={(props: any) => <PageAuthentication {...props} setAuth={() => afterLogin()} />} /> */}
+                    </Switch>
+                </BrowserRouter>
+            </Provider>
+        </ThemeProvider>
     </section>
 
 ReactDOM.render(app, document.getElementById('app'));
