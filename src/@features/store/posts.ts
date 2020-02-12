@@ -46,7 +46,11 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
 function* getPosts({ payload }: any) {
     const { data } = yield call(() => PostService.getPosts(payload.limit));
     console.log(data);
-    yield put({ type: 'GET_POSTS_SUCCESS', payload: data })
+    try {
+        yield put({ type: 'GET_POSTS_SUCCESS', payload: data })
+    } catch (error) {
+        yield put({ type: "GET_POSTS_FAIL", payload: error })
+    }
 }
 
 export function* postSagas() {
