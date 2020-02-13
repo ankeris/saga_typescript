@@ -10,13 +10,10 @@ interface IProps extends DispatchProp {
     posts: Array<Post>
 }
 
-type GetPostsPayload = {
-    limit: number
-}
 
 const PagePosts: FunctionComponent<IProps> = (props) => {
-    const fetchPosts = (): void => {
-        props.dispatch(valuesActions.getPosts<GetPostsPayload>({ limit: 10 }))
+    const fetchPosts = (n: number): void => {
+        props.dispatch(valuesActions.getPosts({ limit: 10, pageNumber: n }))
     }
 
     const getRandomColor = (): string => {
@@ -25,17 +22,16 @@ const PagePosts: FunctionComponent<IProps> = (props) => {
     }
 
     useEffect(() => {
-        fetchPosts();
+        fetchPosts(1);
     }, []);
 
     return (
         <section className="posts">
             <h3>posts</h3>
-            <button onClick={fetchPosts}>hi</button>
             {props.posts && props.posts.map((x: Post) =>
                 <CardPost color={getRandomColor()} key={x.id} {...x}>hi</CardPost>
             )}
-            <Pagination onPageChange={(pageNum) => console.log(pageNum)}></Pagination>
+            <Pagination onPageChange={(pageNum) => fetchPosts(pageNum)}></Pagination>
         </section>
     );
 }
