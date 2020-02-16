@@ -6,10 +6,9 @@ import { Post } from "../@features/types/post.interface";
 import CardPost from "./CardPost";
 import Pagination from "./Pagination";
 
-interface IProps extends DispatchProp {
+export interface IProps extends DispatchProp {
     posts: Array<Post>
 }
-
 
 const PagePosts: FunctionComponent<IProps> = (props) => {
     const fetchPosts = (n: number): void => {
@@ -27,7 +26,7 @@ const PagePosts: FunctionComponent<IProps> = (props) => {
 
     return (
         <section className="posts">
-            <h3>posts</h3>
+            <h3>Posts</h3>
             {props.posts && props.posts.map((x: Post) =>
                 <CardPost color={getRandomColor()} key={x.id} {...x}>hi</CardPost>
             )}

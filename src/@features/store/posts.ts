@@ -46,7 +46,6 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
 
 function* getPosts({ payload }: any) {
     const { data } = yield call(() => PostService.getPosts(payload));
-    console.log(data);
     try {
         yield put({ type: 'GET_POSTS_SUCCESS', payload: data })
     } catch (error) {

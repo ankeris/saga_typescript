@@ -11,7 +11,9 @@ type StyleProps = {
     bgColor: string;
 }
 
-const Card = styled.section<StyleProps>`
+const Card = styled.section.attrs({
+    'data-testid': 'postItem'
+}) <StyleProps>`
   font-size: 1.5em;
   background-color: ${props => props.bgColor};
   padding: 6px;
