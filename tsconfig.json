@@ -2,16 +2,33 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "strict": true,
     "noEmit": true,
     "allowJs": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      // WEBAPP PATHS
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/containers/*": [
+        "src/containers/*"
+      ],
+      "@/store/*": [
+        "src/@features/store/*"
+      ],
+      "@/services/*": [
+        "src/@features/services/*"
+      ],
+    }
   },
   "include": [
-    "src", "index.d.ts"
-  ]
+    "src",
+    "index.d.ts"
+  ],
 }
