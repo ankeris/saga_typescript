@@ -13,12 +13,11 @@ const renderPagePosts = () => render(
 
 describe("<PagePosts />", () => {
 
-    test("Should render list of 10 Posts", async () => {
+    test("Should fetch & render list of 10 Posts", async () => {
         const { getAllByTestId } = renderPagePosts();
         let allElements: HTMLElement[] = [];
         await wait(() => allElements = getAllByTestId('postItem'));
         expect(allElements.length).toBe(10);
-
     });
 
     const title = 'Posts'
@@ -26,6 +25,5 @@ describe("<PagePosts />", () => {
         const { getByText } = renderPagePosts();
         expect(getByText(title)).toBeInTheDocument();
     });
-
 
 });
