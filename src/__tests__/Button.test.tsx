@@ -3,7 +3,6 @@ import { render, wait, fireEvent } from "@testing-library/react";
 
 import Button from "@/components/Button";
 
-
 describe("<Button />", () => {
     test("Should render with props", async () => {
         const buttonText = "i am a text";
@@ -18,5 +17,4 @@ describe("<Button />", () => {
         fireEvent.click(getByText(buttonText));
         expect(clicked).toBeTruthy();
     })
-
 });
