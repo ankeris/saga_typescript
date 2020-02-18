@@ -9,6 +9,7 @@ module.exports = {
     moduleNameMapper: {
         "@/components/(.*)": "<rootDir>/src/components/$1",
         "@/store/(.*)": "<rootDir>/src/@features/store/$1",
+        "@/styling/(.*)": "<rootDir>/src/@features/styling/$1"
     },
     testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
     moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
