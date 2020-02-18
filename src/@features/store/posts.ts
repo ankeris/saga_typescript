@@ -1,7 +1,7 @@
 import { ActionTypes, Action, State, Nullable } from '../types/store.interface';
 import { takeEvery, delay, put, call } from 'redux-saga/effects'
-import PostService from '../services/post.service';
-import { IGetPostsParams } from '../types/post.interface';
+import PostService from '@/services/post.service';
+import { IGetPostsParams } from '@/types/post.interface';
 
 const initialState: State = {
     posts: null,
@@ -45,6 +45,7 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
 }
 
 function* getPosts({ payload }: any) {
+    yield delay(500);
     const { data } = yield call(() => PostService.getPosts(payload));
     try {
         yield put({ type: 'GET_POSTS_SUCCESS', payload: data })

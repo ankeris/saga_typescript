@@ -28,6 +28,9 @@
       "@/services/*": [
         "src/@features/services/*"
       ],
+      "@/types/*": [
+        "src/@features/types/*"
+      ],
     }
   },
   "include": [

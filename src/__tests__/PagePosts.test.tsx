@@ -1,14 +1,18 @@
 import React from "react";
 import { render, wait } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "styled-components";
 
 import PagePosts from "@/components/PagePosts";
 import store from "@/store/store";
-import { Provider } from "react-redux";
+import { myTheme } from '@/styling/theme';
 
 const renderPagePosts = () => render(
-    <Provider store={store}>
-        <PagePosts />
-    </Provider>
+    <ThemeProvider theme={myTheme}>
+        <Provider store={store}>
+            <PagePosts />
+        </Provider>
+    </ThemeProvider>
 );
 
 describe("<PagePosts />", () => {

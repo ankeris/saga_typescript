@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import store from './@features/store/store';
-// components
-import Header from './components/Header';
-import PagePosts from './components/PagePosts';
 import { ThemeProvider } from 'styled-components';
-import { myTheme } from './@features/styling/theme';
-import { GlobalStyles } from './@features/styling/global';
+import store from '@/store/store';
+// components
+import Header from '@/components/Header';
+import PagePosts from '@/components/PagePosts';
+import { myTheme } from '@/styling/theme';
+import { GlobalStyles } from '@/styling/global';
 
 const app =
     <section className="app-box">
