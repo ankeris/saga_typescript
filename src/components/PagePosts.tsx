@@ -1,18 +1,23 @@
-import React, { useState, FunctionComponent, useEffect } from "react";
-import { connect, DispatchProp } from 'react-redux';
-import { valuesActions } from '../@features/store/posts';
+import React, { FunctionComponent, useEffect } from "react";
+import { connect, DispatchProp, useDispatch } from 'react-redux';
+import { valuesActions } from '@/store/posts';
 // types
-import { Post } from "../@features/types/post.interface";
-import CardPost from "./CardPost";
-import Pagination from "./Pagination";
+import { Post } from "@/types/post.interface";
+// components
+import CardPost from "@/components/CardPost";
+import Pagination from "@/components/Pagination";
+import Loader from "@/components/Loader";
 
 export interface IProps extends DispatchProp {
-    posts: Array<Post>
+    posts: Array<Post>,
+    isLoading: boolean
 }
 
 const PagePosts: FunctionComponent<IProps> = (props) => {
+    const dispatch = useDispatch();
+
     const fetchPosts = (n: number): void => {
-        props.dispatch(valuesActions.getPosts({ limit: 10, pageNumber: n }))
+        dispatch(valuesActions.getPosts({ limit: 10, pageNumber: n }))
     }
 
     const getRandomColor = (): string => {
@@ -27,16 +32,18 @@ const PagePosts: FunctionComponent<IProps> = (props) => {
     return (
         <section className="posts">
             <h3>Posts</h3>
-            {props.posts && props.posts.map((x: Post) =>
-                <CardPost color={getRandomColor()} key={x.id} {...x}>hi</CardPost>
-            )}
+            {!props.isLoading ? props.posts ?
+                props.posts.map((x: Post) =>
+                    <CardPost color={getRandomColor()} key={x.id} {...x}>hi</CardPost>
+                ) : null : <Loader wrapperHeight="100vh" />}
             <Pagination onPageChange={(pageNum) => fetchPosts(pageNum)}></Pagination>
         </section>
     );
 }
 
 const mapStateToProps = (state: any) => ({
-    posts: state.posts.posts
+    posts: state.posts.posts,
+    isLoading: state.posts.isLoading
 })
 
 const PagePostsContainer = connect(mapStateToProps)(PagePosts);
