@@ -5,6 +5,7 @@
         "tslint-config-prettier",
         "tslint-react"
     ],
+    "fix": true,
     "jsRules": {},
     "rules": {},
     "rulesDirectory": []

@@ -11,7 +11,14 @@
     "serve": "serve dist",
     "start": "npm run dev",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
   },
   "dependencies": {
     "@babel/runtime": "^7.8.3",
@@ -48,11 +55,13 @@
     "css-loader": "^3.4.2",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.3",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
     "serve": "^11.3.0",
     "style-loader": "^1.1.2",
     "terser-webpack-plugin": "^2.3.2",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.2.0",
     "typescript": "^3.7.4",

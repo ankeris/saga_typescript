@@ -17,8 +17,10 @@ describe("<Pagination />", () => {
         const timesPressed = Math.round(Math.random() * 10);
         let lastOnChangeValueEmitted: number = 0;
         const { getByText } = render(<Pagination onPageChange={x => lastOnChangeValueEmitted = x} />);
-        for (let i = 1; i < timesPressed; i++) {
-            fireEvent.click(getByText(">"));
+        if (timesPressed > 0) {
+            for (let i = 1; i < timesPressed; i++) {
+                fireEvent.click(getByText(">"));
+            }
         }
         expect(lastOnChangeValueEmitted).toBe(timesPressed)
     });
