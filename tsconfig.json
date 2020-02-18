@@ -22,6 +22,9 @@
       "@/store/*": [
         "src/@features/store/*"
       ],
+      "@/styling/*": [
+        "src/@features/styling/*"
+      ],
       "@/services/*": [
         "src/@features/services/*"
       ],

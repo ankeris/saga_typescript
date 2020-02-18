@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 const config = {
@@ -14,7 +14,8 @@ const config = {
     filename: '[name].js',
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.ts', '.tsx', '.js'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   module: {
     rules: [
