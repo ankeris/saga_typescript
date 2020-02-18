@@ -11,13 +11,14 @@
     "serve": "serve dist",
     "start": "npm run dev",
     "test": "jest",
+    "test:file": "jest src/__tests__/Button.test.tsx",
     "test:watch": "jest --watch",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm test",
-      "pre-push": "npm test"
+      "pre-push": ""
     }
   },
   "dependencies": {
