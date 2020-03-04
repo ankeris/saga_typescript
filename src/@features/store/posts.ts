@@ -1,7 +1,7 @@
 import { ActionTypes, Action, State, Nullable } from '../types/store.interface';
 import { takeEvery, delay, put, call } from 'redux-saga/effects'
 import PostService from '@/services/post.service';
-import { IGetPostsParams } from '@/types/post.interface';
+import { IGetPostsParams, Post } from '@/types/post.interface';
 
 const initialState: State = {
     posts: null,
@@ -17,6 +17,7 @@ export const VALUES_ACTION_TYPES: ActionTypes = {
 
 export const valuesActions = {
     getPosts: (payload: IGetPostsParams) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
+    setPosts: (payload: Array<Post>) => ({ type: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS, payload }),
 }
 
 export function postsReducer(state: State = initialState, { type, payload }: Action) {

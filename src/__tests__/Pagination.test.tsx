@@ -18,11 +18,12 @@ describe("<Pagination />", () => {
         let lastOnChangeValueEmitted: number = 0;
         const { getByText } = render(<Pagination onPageChange={x => lastOnChangeValueEmitted = x} />);
         if (timesPressed > 0) {
-            for (let i = 1; i < timesPressed; i++) {
+            for (let i = 0; i < timesPressed; i++) {
                 fireEvent.click(getByText(">"));
             }
+            // + 1 because pagination starts from page 1 all the time.
+            expect(lastOnChangeValueEmitted).toBe(timesPressed + 1)
         }
-        expect(lastOnChangeValueEmitted).toBe(timesPressed)
     });
 
 });
