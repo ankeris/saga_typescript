@@ -21,7 +21,7 @@ describe("<Pagination />", () => {
             for (let i = 0; i < timesPressed; i++) {
                 fireEvent.click(getByText(">"));
             }
-            // + 1 because pagination starts from page 1 all the time.
+            // + 1 is added because pagination starts from page 1.
             expect(lastOnChangeValueEmitted).toBe(timesPressed + 1)
         }
     });
