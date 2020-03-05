@@ -8,11 +8,14 @@ import store from "@/store/store";
 import { myTheme } from '@/styling/theme';
 import { Post } from "@/types/post.interface";
 import mockPosts from "@/utils/posts.mock";
+import { BrowserRouter } from "react-router-dom";
 
 const renderPagePosts = (posts?: Array<Post>) => render(
     <ThemeProvider theme={myTheme}>
         <Provider store={store}>
-            <PagePosts mockPosts={posts} />
+            <BrowserRouter>
+                <PagePosts mockPosts={posts} />
+            </BrowserRouter>
         </Provider>
     </ThemeProvider>
 );
