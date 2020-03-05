@@ -6,6 +6,7 @@ import { simpleApiGetter } from '@/utils/utils';
 
 const initialState: State = {
     posts: null,
+    singlePost: null,
     isLoading: false,
     errorMessage: ""
 };
@@ -21,6 +22,7 @@ export enum VALUES_ACTION_TYPES {
 
 export const valuesActions = {
     getPosts: (payload: IGetPostsParams) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
+    getSinglePost: (payload: IGetSinglePostParams) => ({ type: VALUES_ACTION_TYPES.GET_SINGLE_POST, payload }),
     setPosts: (payload: Array<Post>) => ({ type: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS, payload }),
 }
 
@@ -39,6 +41,24 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
                 isLoading: false
             }
         case VALUES_ACTION_TYPES.GET_POSTS_FAIL:
+            return {
+                ...state,
+                errorMessage: payload,
+                isLoading: false
+            }
+        case VALUES_ACTION_TYPES.GET_SINGLE_POST:
+            return {
+                ...state,
+                errorMessage: "",
+                isLoading: true
+            }
+        case VALUES_ACTION_TYPES.GET_SINGLE_POST_SUCCESS:
+            return {
+                ...state,
+                singlePost: payload,
+                isLoading: false
+            }
+        case VALUES_ACTION_TYPES.GET_SINGLE_POST_FAIL:
             return {
                 ...state,
                 errorMessage: payload,
