@@ -6,7 +6,7 @@ import { simpleApiGetter } from '@/utils/utils';
 
 const initialState: State = {
     posts: null,
-    singlePost: null,
+    currentPost: null,
     isLoading: false,
     errorMessage: ""
 };
@@ -55,7 +55,7 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
         case VALUES_ACTION_TYPES.GET_SINGLE_POST_SUCCESS:
             return {
                 ...state,
-                singlePost: payload,
+                currentPost: payload,
                 isLoading: false
             }
         case VALUES_ACTION_TYPES.GET_SINGLE_POST_FAIL:
