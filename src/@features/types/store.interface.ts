@@ -13,3 +13,8 @@ export interface Action<P = any> {
     type: string;
     payload?: P;
 }
+
+export interface IGeneratorParams<T> {
+    payload: T,
+    type: string
+}

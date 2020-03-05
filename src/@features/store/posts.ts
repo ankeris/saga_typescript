@@ -1,7 +1,8 @@
-import { ActionTypes, Action, State, Nullable } from '../types/store.interface';
-import { takeEvery, delay, put, call } from 'redux-saga/effects'
+import { ActionTypes, Action, State, Nullable, IGeneratorParams } from '../types/store.interface';
+import { takeEvery, takeLatest, delay, put, call, all } from 'redux-saga/effects'
 import PostService from '@/services/post.service';
-import { IGetPostsParams, Post } from '@/types/post.interface';
+import { IGetPostsParams, Post, IGetSinglePostParams } from '@/types/post.interface';
+import { simpleApiGetter } from '@/utils/utils';
 
 const initialState: State = {
     posts: null,
@@ -9,10 +10,13 @@ const initialState: State = {
     errorMessage: ""
 };
 
-export const VALUES_ACTION_TYPES: ActionTypes = {
-    GET_POSTS: "GET_POSTS",
-    GET_POSTS_SUCCESS: "GET_POSTS_SUCCESS",
-    GET_POSTS_FAIL: "GET_POSTS_FAIL",
+export enum VALUES_ACTION_TYPES {
+    GET_POSTS = "GET_POSTS",
+    GET_POSTS_SUCCESS = "GET_POSTS_SUCCESS",
+    GET_POSTS_FAIL = "GET_POSTS_FAIL",
+    GET_SINGLE_POST = "GET_SINGLE_POST",
+    GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS",
+    GET_SINGLE_POST_FAIL = "GET_SINGLE_POST_FAIL",
 }
 
 export const valuesActions = {
@@ -45,17 +49,28 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
     }
 }
 
-function* getPosts({ payload }: any) {
+function* getPosts({ payload }: IGeneratorParams<IGetPostsParams>) {
     yield delay(500);
-    const { data } = yield call(() => PostService.getPosts(payload));
-    try {
-        yield put({ type: 'GET_POSTS_SUCCESS', payload: data })
-    } catch (error) {
-        yield put({ type: "GET_POSTS_FAIL", payload: error })
-    }
+    yield simpleApiGetter({
+        successType: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS,
+        failType: VALUES_ACTION_TYPES.GET_POSTS_FAIL,
+        apiCallBackFN: () => PostService.getPosts(payload),
+    })
 }
 
+function* getSinglePost({ payload }: IGeneratorParams<IGetSinglePostParams>) {
+    yield simpleApiGetter({
+        successType: VALUES_ACTION_TYPES.GET_SINGLE_POST_SUCCESS,
+        failType: VALUES_ACTION_TYPES.GET_SINGLE_POST_FAIL,
+        apiCallBackFN: () => PostService.getPost(payload.id),
+    })
+}
+
+
 export function* postSagas() {
-    console.log('Hello Sagas!')
-    yield takeEvery(VALUES_ACTION_TYPES.GET_POSTS, getPosts)
+    yield all([
+        takeEvery(VALUES_ACTION_TYPES.GET_POSTS, getPosts),
+        takeLatest(VALUES_ACTION_TYPES.GET_SINGLE_POST, getSinglePost)
+    ])
+
 }

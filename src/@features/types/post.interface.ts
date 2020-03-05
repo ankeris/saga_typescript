@@ -8,4 +8,9 @@ export interface Post {
     body: string
 }
 
-export interface IGetPostsParams extends IPagination { }
+export interface IGetPostsParams extends IPagination {
+}
+
+export interface IGetSinglePostParams {
+    id: number;
+}
