@@ -12,6 +12,7 @@ const config = {
   output: {
     path: resolve(__dirname, 'dist'),
     filename: '[name].js',
+    publicPath: '/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -86,6 +87,7 @@ if (isProd) {
     compress: true,
     stats: 'errors-only',
     overlay: true,
+    historyApiFallback: true,
   };
 }
 
