@@ -1,7 +1,7 @@
 
 import React, { useState, useCallback, useEffect, FunctionComponent } from 'react';
 import styled from 'styled-components';
-import Button from './Button';
+import Button from '@/components/presentational/Button';
 
 const PaginationElement = styled.section`
   font-size: 1.5em;

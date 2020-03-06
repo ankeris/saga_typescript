@@ -3,7 +3,7 @@ import { render, wait } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "styled-components";
 
-import PagePosts from "@/components/PagePosts";
+import PagePosts from "@/components/containers/PagePosts";
 import store from "@/store/store";
 import { myTheme } from '@/styling/theme';
 import { Post } from "@/types/post.interface";
