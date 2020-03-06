@@ -18,12 +18,14 @@ export enum VALUES_ACTION_TYPES {
     GET_SINGLE_POST = "GET_SINGLE_POST",
     GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS",
     GET_SINGLE_POST_FAIL = "GET_SINGLE_POST_FAIL",
+    CLEAR_VALUE = "CLEAR_VALUE"
 }
 
 export const valuesActions = {
     getPosts: (payload: IGetPostsParams) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
     getSinglePost: (payload: IGetSinglePostParams) => ({ type: VALUES_ACTION_TYPES.GET_SINGLE_POST, payload }),
     setPosts: (payload: Array<Post>) => ({ type: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS, payload }),
+    clearValue: (payload: string) => ({ type: VALUES_ACTION_TYPES.CLEAR_VALUE, payload })
 }
 
 export function postsReducer(state: State = initialState, { type, payload }: Action) {
@@ -63,6 +65,11 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
                 ...state,
                 errorMessage: payload,
                 isLoading: false
+            }
+        case VALUES_ACTION_TYPES.CLEAR_VALUE:
+            return {
+                ...state,
+                [payload]: null
             }
         default:
             return state

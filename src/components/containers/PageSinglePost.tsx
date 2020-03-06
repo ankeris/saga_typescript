@@ -14,6 +14,8 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        // always clear the previous post if there was one.
+        props.currentPost && dispatch(valuesActions.clearValue('currentPost'))
         dispatch(valuesActions.getSinglePost({ id: (props.match.params as IGetSinglePostParams).id }))
     }, [])
 
