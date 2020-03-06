@@ -1,7 +1,7 @@
 import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
 
-import Button from "@/components/Button";
+import Button from "@/components/presentational/Button";
 
 describe("<Button />", () => {
     test("Should render with props", async () => {

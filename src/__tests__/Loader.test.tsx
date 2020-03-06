@@ -1,7 +1,7 @@
 import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
 
-import Loader from "@/components/Loader";
+import Loader from "@/components/presentational/Loader";
 import { ThemeProvider } from "styled-components";
 import { myTheme } from '@/styling/theme';
 

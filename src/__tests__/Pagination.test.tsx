@@ -1,6 +1,6 @@
 import React from "react";
 import { render, wait, fireEvent } from "@testing-library/react";
-import Pagination from "@/components/Pagination";
+import Pagination from "@/components/containers/Pagination";
 
 describe("<Pagination />", () => {
 

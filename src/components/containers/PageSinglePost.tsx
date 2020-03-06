@@ -3,7 +3,7 @@ import { connect, DispatchProp, useDispatch } from 'react-redux';
 import { valuesActions } from "@/store/posts";
 import { RouteProps, RouteComponentProps } from "react-router";
 import { IGetSinglePostParams, Post } from "@/types/post.interface";
-import Loader from "@/components/Loader";
+import Loader from "@/components/presentational/Loader";
 
 export interface IProps extends DispatchProp, RouteComponentProps {
     id?: number;

@@ -5,11 +5,11 @@ import { BrowserRouter, Switch, Route, RouteProps, RouteComponentProps } from "r
 import { ThemeProvider } from 'styled-components';
 import store from '@/store/store';
 // components
-import Header from '@/components/Header';
-import PagePosts from '@/components/PagePosts';
+import Header from '@/components/containers/Header';
+import PagePosts from '@/components/containers/PagePosts';
 import { myTheme } from '@/styling/theme';
 import { GlobalStyles } from '@/styling/global';
-import PagePostsContainer from '@/components/PageSinglePost';
+import PagePostsContainer from '@/components/containers/PageSinglePost';
 
 const app =
     <section className="app-box">

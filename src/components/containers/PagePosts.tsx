@@ -4,9 +4,9 @@ import { valuesActions } from '@/store/posts';
 // types
 import { Post } from "@/types/post.interface";
 // components
-import CardPost from "@/components/CardPost";
-import Pagination from "@/components/Pagination";
-import Loader from "@/components/Loader";
+import CardPost from "@/components/presentational/CardPost";
+import Loader from "@/components/presentational/Loader";
+import Pagination from "@/components/containers/Pagination";
 import { getRandomColor } from "@/utils/utils";
 
 export interface IProps extends DispatchProp {
