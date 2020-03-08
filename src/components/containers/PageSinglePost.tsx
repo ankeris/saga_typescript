@@ -4,6 +4,7 @@ import { valuesActions } from "@/store/posts";
 import { RouteProps, RouteComponentProps } from "react-router";
 import { IGetSinglePostParams, Post } from "@/types/post.interface";
 import Loader from "@/components/presentational/Loader";
+import ButtonComponent from "../presentational/Button";
 
 export interface IProps extends DispatchProp, RouteComponentProps {
     id?: number;
@@ -21,6 +22,7 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
 
     return props.currentPost ? (
         <>
+            <ButtonComponent text="Back" onClick={props.history.goBack}></ButtonComponent>
             <h4>{props.currentPost.title}</h4>
             <section>{props.currentPost.body}</section>
         </>
