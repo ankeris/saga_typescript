@@ -6,6 +6,7 @@ import { IGetSinglePostParams, Post } from "@/types/post.interface";
 import Loader from "@/components/presentational/Loader";
 import ButtonComponent from "@/components/presentational/Button";
 import CreateCommentForm from "@/components/presentational/commentForm";
+import { IGetPostComments } from "@/types/comment.interface";
 
 export interface IProps extends DispatchProp, RouteComponentProps {
     id?: number;
@@ -18,6 +19,7 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
     useEffect(() => {
         // always clear the previous post if there was one.
         dispatch(valuesActions.getSinglePost({ id: (props.match.params as IGetSinglePostParams).id }))
+        dispatch(valuesActions.getPostComments({ id: (props.match.params as IGetPostComments).id }))
     }, [])
 
     // cleanup on un-mount

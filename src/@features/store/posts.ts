@@ -1,8 +1,10 @@
-import { ActionTypes, Action, State, Nullable, IGeneratorParams } from '../types/store.interface';
-import { takeEvery, takeLatest, delay, put, call, all } from 'redux-saga/effects'
+import { Action, State, IGeneratorParams } from '../types/store.interface';
+import { takeEvery, takeLatest, delay, all } from 'redux-saga/effects';
 import PostService from '@/services/post.service';
+import CommentService from '@/services/comment.service';
 import { IGetPostsParams, Post, IGetSinglePostParams } from '@/types/post.interface';
 import { simpleApiGetter } from '@/utils/utils';
+import { IGetPostComments } from '@/types/comment.interface';
 
 const initialState: State = {
     posts: null,
@@ -18,12 +20,16 @@ export enum VALUES_ACTION_TYPES {
     GET_SINGLE_POST = "GET_SINGLE_POST",
     GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS",
     GET_SINGLE_POST_FAIL = "GET_SINGLE_POST_FAIL",
+    GET_POST_COMMENTS = "GET_POST_COMMENTS",
+    GET_POST_COMMENTS_SUCCESS = "GET_POST_COMMENTS_SUCCESS",
+    GET_POST_COMMENTS_FAIL = "GET_POST_COMMENTS_FAIL",
     CLEAR_VALUE = "CLEAR_VALUE"
 }
 
 export const valuesActions = {
     getPosts: (payload: IGetPostsParams) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
     getSinglePost: (payload: IGetSinglePostParams) => ({ type: VALUES_ACTION_TYPES.GET_SINGLE_POST, payload }),
+    getPostComments: (payload: IGetPostComments) => ({ type: VALUES_ACTION_TYPES.GET_POST_COMMENTS, payload }),
     setPosts: (payload: Array<Post>) => ({ type: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS, payload }),
     clearValue: (payload: string) => ({ type: VALUES_ACTION_TYPES.CLEAR_VALUE, payload })
 }
@@ -66,6 +72,22 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
                 errorMessage: payload,
                 isLoading: false
             }
+        case VALUES_ACTION_TYPES.GET_POST_COMMENTS:
+            return {
+                ...state,
+                // isLoading: true,
+            }
+        case VALUES_ACTION_TYPES.GET_POST_COMMENTS_SUCCESS:
+            return {
+                ...state,
+                // isLoading: false
+                currentPost: { ...state.currentPost, comments: payload }
+            }
+        case VALUES_ACTION_TYPES.GET_POST_COMMENTS_FAIL:
+            return {
+                ...state,
+                currentPost: { ...state.currentPost, errorMessage: payload }
+            }
         case VALUES_ACTION_TYPES.CLEAR_VALUE:
             return {
                 ...state,
@@ -93,11 +115,19 @@ function* getSinglePost({ payload }: IGeneratorParams<IGetSinglePostParams>) {
     })
 }
 
+function* getPostComments({ payload }: IGeneratorParams<IGetPostComments>) {
+    yield simpleApiGetter({
+        successType: VALUES_ACTION_TYPES.GET_POST_COMMENTS_SUCCESS,
+        failType: VALUES_ACTION_TYPES.GET_POST_COMMENTS_FAIL,
+        apiCallBackFN: () => CommentService.getPostComments(payload.id),
+    })
+}
 
 export function* postSagas() {
     yield all([
         takeEvery(VALUES_ACTION_TYPES.GET_POSTS, getPosts),
-        takeLatest(VALUES_ACTION_TYPES.GET_SINGLE_POST, getSinglePost)
+        takeLatest(VALUES_ACTION_TYPES.GET_SINGLE_POST, getSinglePost),
+        takeLatest(VALUES_ACTION_TYPES.GET_POST_COMMENTS, getPostComments)
     ])
 
 }
