@@ -127,7 +127,8 @@ export function* postSagas() {
     yield all([
         takeEvery(VALUES_ACTION_TYPES.GET_POSTS, getPosts),
         takeLatest(VALUES_ACTION_TYPES.GET_SINGLE_POST, getSinglePost),
-        takeLatest(VALUES_ACTION_TYPES.GET_POST_COMMENTS, getPostComments)
+        takeLatest(VALUES_ACTION_TYPES.GET_POST_COMMENTS, getPostComments),
+        takeEvery(VALUES_ACTION_TYPES.GET_SINGLE_POST_SUCCESS, getPostComments),
     ])
 
 }
