@@ -5,6 +5,10 @@ const getRandomColor = (): string => {
     return colorArray[Math.floor(Math.random() * Math.floor(colorArray.length))]
 }
 
+function getRandomDate(start: Date, end: Date) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).toDateString();
+}
+
 type ApiGetterParams = { successType: string, failType: string, apiCallBackFN: Function }
 function* simpleApiGetter({ successType, failType, apiCallBackFN }: ApiGetterParams) {
     const { data } = yield call(() => apiCallBackFN());
@@ -17,5 +21,6 @@ function* simpleApiGetter({ successType, failType, apiCallBackFN }: ApiGetterPar
 
 export {
     getRandomColor,
+    getRandomDate,
     simpleApiGetter
 }
