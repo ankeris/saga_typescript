@@ -6,7 +6,7 @@ import { IGetSinglePostParams, Post } from "@/types/post.interface";
 import Loader from "@/components/presentational/Loader";
 import CommentComponent from "@/components/presentational/Comment";
 import ButtonComponent from "@/components/presentational/Button";
-import CreateCommentForm from "@/components/presentational/commentForm";
+import CreateCommentForm, { CreateCommentFormData } from "@/components/presentational/commentForm";
 import { IGetPostComments, Comment } from "@/types/comment.interface";
 
 export interface IProps extends DispatchProp, RouteComponentProps {
@@ -26,10 +26,10 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
         dispatch(valuesActions.clearValue('currentPost'))
     }, [])
 
-    const postComment = (vals) => {
+    const postComment = (vals: CreateCommentFormData) => {
         dispatch(valuesActions.addComment({
             id: Math.random(),
-            postId: 1,
+            postId: Math.random(),
             body: vals.commentBodyText,
             name: vals.nickName,
             email: ''
@@ -41,7 +41,7 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
             <ButtonComponent text="Back" onClick={props.history.goBack}></ButtonComponent>
             <h4>{props.currentPost.title}</h4>
             <section>{props.currentPost.body}</section>
-            <CreateCommentForm exposeValues={(vals) => postComment(vals)} onSubmit={() => { }}></CreateCommentForm>
+            <CreateCommentForm exposeValues={(vals: CreateCommentFormData) => postComment(vals)} onSubmit={() => { }}></CreateCommentForm>
             {
                 props.currentPost.comments &&
                 props.currentPost.comments.map((comm) =>

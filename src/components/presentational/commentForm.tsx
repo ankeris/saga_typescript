@@ -4,7 +4,7 @@ import { reduxForm, Field, InjectedFormProps, } from "redux-form";
 interface IProps {
     exposeValues: (vals: CreateCommentFormData) => void
 }
-type CreateCommentFormData = {
+export type CreateCommentFormData = {
     nickName: string;
     commentBodyText: string;
 }
