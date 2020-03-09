@@ -26,12 +26,22 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
         dispatch(valuesActions.clearValue('currentPost'))
     }, [])
 
+    const postComment = (vals) => {
+        dispatch(valuesActions.addComment({
+            id: Math.random(),
+            postId: 1,
+            body: vals.commentBodyText,
+            name: vals.nickName,
+            email: ''
+        }))
+    }
+
     return props.currentPost ? (
         <>
             <ButtonComponent text="Back" onClick={props.history.goBack}></ButtonComponent>
             <h4>{props.currentPost.title}</h4>
             <section>{props.currentPost.body}</section>
-            <CreateCommentForm></CreateCommentForm>
+            <CreateCommentForm exposeValues={(vals) => postComment(vals)} onSubmit={() => { }}></CreateCommentForm>
             {
                 props.currentPost.comments &&
                 props.currentPost.comments.map((comm) =>

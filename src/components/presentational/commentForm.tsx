@@ -1,14 +1,21 @@
-import React from "react";
-import { reduxForm, Field } from "redux-form";
+import React, { FunctionComponent, useCallback } from "react";
+import { reduxForm, Field, InjectedFormProps, } from "redux-form";
 
-const CommentForm = (props: any) => {
-    const { handleSubmit } = props
+interface IProps {
+    exposeValues: (vals: CreateCommentFormData) => void
+}
+type CreateCommentFormData = {
+    nickName: string;
+    commentBodyText: string;
+}
 
-    const theSubmit = (values: any) => {
-        console.log(values);
-    }
+const CommentForm: FunctionComponent<IProps & InjectedFormProps<{}, IProps>> = (props) => {
+    const exposeValues = useCallback((vals) => {
+        const valsToExpose: CreateCommentFormData = vals;
+        props.exposeValues(valsToExpose);
+    }, []);
 
-    return <form onSubmit={handleSubmit(theSubmit)}>
+    return <form onSubmit={props.handleSubmit(exposeValues)}>
         <div>
             <label htmlFor="nickName">Nick Name</label>
             <Field name="nickName" component="input" type="text" />
@@ -23,7 +30,7 @@ const CommentForm = (props: any) => {
     </form>
 }
 
-const CreateCommentForm = reduxForm({
+const CreateCommentForm = reduxForm<{}, IProps>({
     // a unique name for the form
     form: 'createComment'
 })(CommentForm)

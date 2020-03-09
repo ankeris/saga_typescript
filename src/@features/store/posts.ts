@@ -4,7 +4,7 @@ import PostService from '@/services/post.service';
 import CommentService from '@/services/comment.service';
 import { IGetPostsParams, Post, IGetSinglePostParams } from '@/types/post.interface';
 import { simpleApiGetter } from '@/utils/utils';
-import { IGetPostComments } from '@/types/comment.interface';
+import { IGetPostComments, Comment } from '@/types/comment.interface';
 
 const initialState: State = {
     posts: null,
@@ -23,6 +23,7 @@ export enum VALUES_ACTION_TYPES {
     GET_POST_COMMENTS = "GET_POST_COMMENTS",
     GET_POST_COMMENTS_SUCCESS = "GET_POST_COMMENTS_SUCCESS",
     GET_POST_COMMENTS_FAIL = "GET_POST_COMMENTS_FAIL",
+    ADD_COMMENT = "ADD_COMMENT",
     CLEAR_VALUE = "CLEAR_VALUE"
 }
 
@@ -30,6 +31,7 @@ export const valuesActions = {
     getPosts: (payload: IGetPostsParams) => ({ type: VALUES_ACTION_TYPES.GET_POSTS, payload }),
     getSinglePost: (payload: IGetSinglePostParams) => ({ type: VALUES_ACTION_TYPES.GET_SINGLE_POST, payload }),
     getPostComments: (payload: IGetPostComments) => ({ type: VALUES_ACTION_TYPES.GET_POST_COMMENTS, payload }),
+    addComment: (payload: Comment) => ({ type: VALUES_ACTION_TYPES.ADD_COMMENT, payload }),
     setPosts: (payload: Array<Post>) => ({ type: VALUES_ACTION_TYPES.GET_POSTS_SUCCESS, payload }),
     clearValue: (payload: string) => ({ type: VALUES_ACTION_TYPES.CLEAR_VALUE, payload })
 }
@@ -87,6 +89,11 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
             return {
                 ...state,
                 currentPost: { ...state.currentPost, errorMessage: payload }
+            }
+        case VALUES_ACTION_TYPES.ADD_COMMENT:
+            return {
+                ...state,
+                currentPost: { ...state.currentPost, comments: [payload, ...state.currentPost.comments] }
             }
         case VALUES_ACTION_TYPES.CLEAR_VALUE:
             return {
