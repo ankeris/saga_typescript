@@ -7,7 +7,7 @@ import Loader from "@/components/presentational/Loader";
 import CommentComponent from "@/components/presentational/Comment";
 import ButtonComponent from "@/components/presentational/Button";
 import CreateCommentForm, { CreateCommentFormData } from "@/components/presentational/commentForm";
-import { IGetPostComments, Comment } from "@/types/comment.interface";
+import { postCommentFilter } from "@/selectors/postSelectors";
 
 export interface IProps extends DispatchProp, RouteComponentProps {
     id?: number;
@@ -53,7 +53,8 @@ const PageSinglePost: FunctionComponent<IProps> = (props) => {
 
 const mapStateToProps = (state: any) => ({
     currentPost: state.posts.currentPost,
-    isLoading: state.posts.isLoading
+    isLoading: state.posts.isLoading,
+    comments: postCommentFilter(state)
 })
 
 const PagePostsContainer = connect(mapStateToProps)(PageSinglePost);

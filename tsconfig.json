@@ -28,6 +28,9 @@
       "@/services/*": [
         "src/@features/services/*"
       ],
+      "@/selectors/*": [
+        "src/@features/selectors/*"
+      ],
       "@/types/*": [
         "src/@features/types/*"
       ],

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback } from "react";
-import { reduxForm, Field, InjectedFormProps, } from "redux-form";
+import { reduxForm, Field, InjectedFormProps, clearFields } from "redux-form";
 
 interface IProps {
     exposeValues: (vals: CreateCommentFormData) => void
@@ -13,6 +13,7 @@ const CommentForm: FunctionComponent<IProps & InjectedFormProps<{}, IProps>> = (
     const exposeValues = useCallback((vals) => {
         const valsToExpose: CreateCommentFormData = vals;
         props.exposeValues(valsToExpose);
+        props.reset();
     }, []);
 
     return <form onSubmit={props.handleSubmit(exposeValues)}>
