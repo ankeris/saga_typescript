@@ -91,9 +91,10 @@ export function postsReducer(state: State = initialState, { type, payload }: Act
                 currentPost: { ...state.currentPost, errorMessage: payload }
             }
         case VALUES_ACTION_TYPES.ADD_COMMENT:
+            const comments = state.currentPost.comments ? [payload, ...state.currentPost.comments] : [payload];
             return {
                 ...state,
-                currentPost: { ...state.currentPost, comments: [payload, ...state.currentPost.comments] }
+                currentPost: { ...state.currentPost, comments }
             }
         case VALUES_ACTION_TYPES.CLEAR_VALUE:
             return {
